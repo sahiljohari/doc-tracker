@@ -4,19 +4,19 @@ class NavBar extends Component {
   render() {
     return (
       <div className="header">
-        <h1 class="logo">DocZilla</h1>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+        <h1 className="logo">DocZilla</h1>
+        <input type="checkbox" id="nav-toggle" className="nav-toggle" />
         <nav>
           <ul>
             <li>
-              <a href>Profile</a>
+              <a href="/">Profile</a>
             </li>
             <li>
-              <a href>Log Out</a>
+              <a href="/">Log Out</a>
             </li>
           </ul>
         </nav>
-        <label for="nav-toggle" class="nav-toggle-label">
+        <label htmlFor="nav-toggle" className="nav-toggle-label">
           <span />
         </label>
       </div>

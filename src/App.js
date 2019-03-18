@@ -6,45 +6,25 @@ class App extends Component {
     super(props);
     this.state = {
       isLoaded: false,
-      data: [
-        {
-          docName: "Passport",
-          status: "Valid",
-          issueDate: "2015-03-03",
-          expiryDate: "2025-03-02"
-        },
-        {
-          docName: "Drivers License",
-          status: "Expired",
-          issueDate: "2017-05-02",
-          expiryDate: "2018-05-01"
-        },
-        {
-          docName: "Credit Card",
-          status: "Expired",
-          issueDate: "2015-03-03",
-          expiryDate: "2025-03-02"
-        },
-        {
-          docName: "Visa",
-          status: "Valid",
-          issueDate: "2015-03-03",
-          expiryDate: "2025-03-02"
-        },
-        {
-          docName: "i20",
-          status: "Valid",
-          issueDate: "2017-08-21",
-          expiryDate: "2019-05-18"
-        }
-      ]
+      responseData: []
     };
   }
 
   componentDidMount() {
-    this.setState({
-      isLoaded: true
-    });
+    fetch("http://localhost:5000/home", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          responseData: json,
+          isLoaded: true
+        });
+      })
+      .catch(error => console.log("Error!", error));
   }
 
   render() {
@@ -52,7 +32,7 @@ class App extends Component {
       return (
         <div>
           <NavBar />
-          <CardBoard data={this.state.data} />
+          <CardBoard responseData={this.state.responseData} />
         </div>
       );
     } else {

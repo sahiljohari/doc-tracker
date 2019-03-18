@@ -25,8 +25,8 @@ class Card extends Component {
       <div className={"card-container " + statusStyle}>
         <div className="grid-items-header">
           <h2>{this.props.name}</h2>
-          <a className="expand-button" href={"#"}>
-            <i class="fa fa-eye">
+          <a className="expand-button" href="/">
+            <i className="fa fa-eye">
               <span>View</span>
             </i>
           </a>

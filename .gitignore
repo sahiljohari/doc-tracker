@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 README.old.md
+Login.js
+login.css
+/src/pages

@@ -3,7 +3,7 @@ import Card from "./card";
 
 class CardBoard extends Component {
   render() {
-    const data = this.props.data;
+    const data = this.props.responseData.data;
     return (
       <div className="main-container">
         {data.map(item => (
