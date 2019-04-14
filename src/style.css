@@ -284,6 +284,7 @@ nav a:hover {
   grid-template-columns: auto auto;
   height: 215px;
   width: 100%;
+  max-width: 315px;
   position: relative;
   padding-top: 0px;
   padding-left: 10px;

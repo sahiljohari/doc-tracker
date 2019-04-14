@@ -8,12 +8,17 @@ class Card extends Component {
     };
 
     this.handleCardExpansion = this.handleCardExpansion.bind(this);
+    this.handleDelete = this.handleDelete.bind(this, this.props.name);
   }
 
   handleCardExpansion() {
     this.setState({
       isCardExpanded: !this.state.isCardExpanded
     });
+  }
+
+  handleDelete(cardName) {
+    this.props.deleteHandler(cardName);
   }
 
   render() {
@@ -54,7 +59,11 @@ class Card extends Component {
           </button>
         </div>
         <div className="buttons">
-          <button type="button" className="btn btn-outline-danger btn-block">
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-block"
+            onClick={this.handleDelete}
+          >
             Delete
           </button>
         </div>
