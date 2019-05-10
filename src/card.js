@@ -1,19 +1,20 @@
 import React, { Component } from "react";
-
+// Reference to edit a card
+// https://www.youtube.com/watch?v=WTh54FMNrbU
 class Card extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCardExpanded: false
+      isCardInEdit: false
     };
 
-    this.handleCardExpansion = this.handleCardExpansion.bind(this);
+    this.handleCardEdit = this.handleCardEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this, this.props.name);
   }
 
-  handleCardExpansion() {
+  handleCardEdit() {
     this.setState({
-      isCardExpanded: !this.state.isCardExpanded
+      isCardInEdit: !this.state.isCardInEdit
     });
   }
 
@@ -21,7 +22,66 @@ class Card extends Component {
     this.props.deleteHandler(cardName);
   }
 
-  render() {
+  updateComponentFields = () => {
+    this.setState({
+      isCardInEdit: false
+    });
+  };
+
+  renderEditView = () => {
+    var statusStyle =
+      this.props.status.toLowerCase() === "expired"
+        ? "card-container-invalid color-invalid"
+        : "card-container-valid color-valid";
+    return (
+      <div className={"card-container " + statusStyle}>
+        <div className="grid-items-header">
+          <h2>
+            <input type="text" defaultValue={this.props.name} />
+          </h2>
+          <a className="expand-button" href="/">
+            <i className="fa fa-eye">
+              <span>View</span>
+            </i>
+          </a>
+        </div>
+        <div className="grid-items-content">
+          <h3>
+            <b>Status:</b>{" "}
+            <input type="text" defaultValue={this.props.status} />
+          </h3>
+          <h3>
+            <b>Date of Issue:</b>
+            <input type="text" defaultValue={this.props.issueDate} />
+          </h3>
+          <h3>
+            <b>Date of Expiry:</b>
+            <input type="text" defaultValue={this.props.expiryDate} />
+          </h3>
+        </div>
+        <div className="buttons">
+          <button
+            type="button"
+            className="btn btn-outline-success btn-block"
+            onClick={this.updateComponentFields}
+          >
+            Save
+          </button>
+        </div>
+        <div className="buttons">
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-block"
+            onClick={this.handleCardEdit}
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+  renderDefaultView = () => {
     var statusStyle =
       this.props.status.toLowerCase() === "expired"
         ? "card-container-invalid color-invalid"
@@ -36,7 +96,6 @@ class Card extends Component {
             </i>
           </a>
         </div>
-        {/* {this.state.isCardExpanded ? ( */}
         <div className="grid-items-content">
           <h3>
             <b>Status:</b> {this.props.status}
@@ -48,13 +107,12 @@ class Card extends Component {
             <b>Date of Expiry:</b> {this.props.expiryDate}
           </h3>
         </div>
-        {
-          // ) : (
-          //   <div className="grid-items-content" />
-          // )}
-        }
         <div className="buttons">
-          <button type="button" className="btn btn-outline-success btn-block">
+          <button
+            type="button"
+            className="btn btn-outline-success btn-block"
+            onClick={this.handleCardEdit}
+          >
             Edit
           </button>
         </div>
@@ -69,6 +127,12 @@ class Card extends Component {
         </div>
       </div>
     );
+  };
+
+  render() {
+    return this.state.isCardInEdit || !this.props.name
+      ? this.renderEditView()
+      : this.renderDefaultView();
   }
 }
 
