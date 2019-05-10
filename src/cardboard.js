@@ -8,7 +8,23 @@ class CardBoard extends Component {
       editCard: false,
       data: this.props.responseData.data
     };
+    this.addCard = this.addCard.bind(this);
     this.removeCard = this.removeCard.bind(this);
+  }
+
+  addCard() {
+    this.setState(currentState => {
+      return {
+        data: currentState.data.concat([
+          {
+            docName: "",
+            status: "",
+            issueDate: "",
+            expiryDate: ""
+          }
+        ])
+      };
+    });
   }
 
   removeCard(cardName) {
@@ -22,6 +38,9 @@ class CardBoard extends Component {
     // console.log(data);
     return (
       <div className="main-container">
+        <button className=" btn btn-light add-card" onClick={this.addCard}>
+          <i className="fa fa-plus-circle" />
+        </button>
         {this.state.data.map(item => (
           <Card
             key={item.docName}
