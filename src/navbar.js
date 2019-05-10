@@ -4,7 +4,7 @@ class NavBar extends Component {
   render() {
     return (
       <div className="header">
-        <h1 className="logo">DocZilla</h1>
+        <h1 className="logo">Documinator</h1>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
         <nav>
           <ul>
