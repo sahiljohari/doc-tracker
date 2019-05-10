@@ -10,7 +10,7 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch("http://localhost:5000/home", {
       method: "GET",
       headers: {
