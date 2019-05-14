@@ -4,13 +4,13 @@ class NavBar extends Component {
   render() {
     return (
       <div className="header">
-        <h1 className="logo">Documinator</h1>
+        <h1 className="logo">Document Organizer</h1>
         <input type="checkbox" id="nav-toggle" className="nav-toggle" />
         <nav>
           <ul>
-            <li>
+            {/* <li>
               <a href="/">Profile</a>
-            </li>
+            </li> */}
             <li>
               <a href="/">Log Out</a>
             </li>

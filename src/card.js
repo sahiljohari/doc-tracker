@@ -12,32 +12,68 @@ class Card extends Component {
     this.handleDelete = this.handleDelete.bind(this, this.props.name);
   }
 
+  formatDate(date) {
+    const currentMonth = date.getMonth();
+    const monthString = currentMonth >= 10 ? currentMonth : `0${currentMonth}`;
+    const currentDate = date.getDate();
+    const dateString = currentDate >= 10 ? currentDate : `0${currentDate}`;
+    return `${date.getFullYear()}-${monthString}-${dateString}`;
+  }
+
   handleCardEdit() {
     this.setState({
       isCardInEdit: !this.state.isCardInEdit
     });
+    this.props.editHandler(this.state.isCardInEdit);
   }
 
-  handleDelete(cardName) {
-    this.props.deleteHandler(cardName);
+  handleDelete() {
+    this.props.deleteHandler(this.props.id);
   }
 
   updateComponentFields = () => {
+    let newData = null;
+    if (this.props.id) {
+      newData = {
+        _id: this.props.id,
+        docName: this.refs.cardHeaderText.value,
+        status: this.refs.cardStatusText.value,
+        issueDate: this.refs.cardIssueDateText.value,
+        expireDate: this.refs.cardExpireDateText.value
+      };
+    } else {
+      newData = {
+        docName: this.refs.cardHeaderText.value,
+        status: this.refs.cardStatusText.value,
+        issueDate: this.refs.cardIssueDateText.value,
+        expireDate: this.refs.cardExpireDateText.value
+      };
+    }
+    console.log(newData);
+    this.props.updateHandler(newData);
+
     this.setState({
       isCardInEdit: false
     });
   };
 
   renderEditView = () => {
-    var statusStyle =
-      this.props.status.toLowerCase() === "expired"
-        ? "card-container-invalid color-invalid"
-        : "card-container-valid color-valid";
+    var statusStyle = "card-container-neutral color-neutral";
     return (
       <div className={"card-container " + statusStyle}>
         <div className="grid-items-header">
           <h2>
-            <input type="text" defaultValue={this.props.name} />
+            <select ref="cardHeaderText" defaultValue={this.props.name}>
+              <option value="Passport">Passport</option>
+              <option value="Visa">Visa</option>
+              <option value="Credit card">Credit card</option>
+              <option value="Drivers License">Drivers License</option>
+            </select>
+            {/* <input
+              type="text"
+              ref="cardHeaderText"
+              defaultValue={this.props.name}
+            /> */}
           </h2>
           <a className="expand-button" href="/">
             <i className="fa fa-eye">
@@ -48,15 +84,26 @@ class Card extends Component {
         <div className="grid-items-content">
           <h3>
             <b>Status:</b>{" "}
-            <input type="text" defaultValue={this.props.status} />
+            <select ref="cardStatusText" defaultValue={this.props.status}>
+              <option value="Valid">Valid</option>
+              <option value="Expired">Expired</option>
+            </select>
           </h3>
           <h3>
             <b>Date of Issue:</b>
-            <input type="text" defaultValue={this.props.issueDate} />
+            <input
+              type="date"
+              ref="cardIssueDateText"
+              defaultValue={this.formatDate(new Date(this.props.issueDate))}
+            />
           </h3>
           <h3>
             <b>Date of Expiry:</b>
-            <input type="text" defaultValue={this.props.expiryDate} />
+            <input
+              type="date"
+              ref="cardExpireDateText"
+              defaultValue={this.formatDate(new Date(this.props.expiryDate))}
+            />
           </h3>
         </div>
         <div className="buttons">
@@ -101,10 +148,12 @@ class Card extends Component {
             <b>Status:</b> {this.props.status}
           </h3>
           <h3>
-            <b>Date of Issue:</b> {this.props.issueDate}
+            <b>Date of Issue:</b>{" "}
+            {this.formatDate(new Date(this.props.issueDate))}
           </h3>
           <h3>
-            <b>Date of Expiry:</b> {this.props.expiryDate}
+            <b>Date of Expiry:</b>{" "}
+            {this.formatDate(new Date(this.props.expiryDate))}
           </h3>
         </div>
         <div className="buttons">

@@ -270,12 +270,20 @@ nav a:hover {
   background: #d60000;
 }
 
+.color-neutral::before {
+  background: #b5b0b0;
+}
+
 .card-container-valid {
   color: #067800;
 }
 
 .card-container-invalid {
   color: #780000;
+}
+
+.card-container-neutral {
+  color: #000000;
 }
 
 .card-container {
